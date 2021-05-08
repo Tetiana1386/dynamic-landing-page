@@ -1,7 +1,7 @@
-const time = document.getElementById('time'),
-    greeting = document.getElementById('greeting'),
-    name = document.getElementById('name'),
-    focus = document.getElementById('focus');
+const timeRef = document.getElementById('time'),
+      greetingRef = document.getElementById('greeting'),
+      nameRef = document.getElementById('name'),
+      focusRef = document.getElementById('focus');
 
 const showAmPm = true;
 
@@ -15,34 +15,37 @@ function showTime() {
 
     hour = hour % 12 || 12;
 
-    time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(
+    timeRef.innerHTML = `${getZero(hour)}<span>:</span>${getZero(min)}<span>:</span>${getZero(
         sec
     )} ${showAmPm ? amPm : ''}`;
 
     setTimeout(showTime, 1000);
 }
 
-function addZero(n) {
-    return (parseInt(n, 10) < 10 ? '0' : '') + n;
+function getZero(num) {
+    if (num >= 0 && num < 10) {
+        return '0' + num;
+    } else {
+        return num;
+    }
 }
 
 function setBgGreet() {
     let today = new Date(),
         hour = today.getHours();
-
-    if (hour >= 5 && hour < 12)
-     {
+    
+    if (hour < 12) {
         // Morning
         document.body.style.backgroundImage = "url('./img/morning.jpg')";
-        greeting.textContent = 'Good Morning, ';
-    } else if (hour >= 12 && hour < 18) {
+        greetingRef.textContent = 'Good Morning, ';
+    } else if (hour < 18) {
         // Afternoon
         document.body.style.backgroundImage = "url('./img/afternoon.jpeg')";
-        greeting.textContent = 'Good Afternoon, ';
+        greetingRef.textContent = 'Good Afternoon, ';
     } else {
         // Evening
         document.body.style.backgroundImage = "url('./img/evening.jpeg')";
-        greeting.textContent = 'Good Evening, ';
+        greetingRef.textContent = 'Good Evening, ';
         document.body.style.color = 'white';
     }
 }
@@ -50,9 +53,9 @@ function setBgGreet() {
 // Get/Set Name
 function getName() {
     if (localStorage.getItem('name') === null) {
-        name.textContent = '[Enter Name]';
+        nameRef.textContent = '[Enter Name]';
     } else {
-        name.textContent = localStorage.getItem('name');
+        nameRef.textContent = localStorage.getItem('name');
     }
 }
 
@@ -60,7 +63,7 @@ function setName(e) {
     if (e.type === 'keypress') {
     if (e.which == 13 || e.keyCode == 13) {
             localStorage.setItem('name', e.target.innerText);
-            name.blur();
+            nameRef.blur();
         }
     } else {
         localStorage.setItem('name', e.target.innerText);
@@ -70,9 +73,9 @@ function setName(e) {
 // Get/Set Focus
 function getFocus() {
     if (localStorage.getItem('focus') === null) {
-        focus.textContent = '[Enter Focus]';
+        focusRef.textContent = '[Enter Focus]';
     } else {
-        focus.textContent = localStorage.getItem('focus');
+        focusRef.textContent = localStorage.getItem('focus');
     }
 }
 
@@ -80,17 +83,17 @@ function setFocus(e) {
     if (e.type === 'keypress') {
     if (e.which == 13 || e.keyCode == 13) {
             localStorage.setItem('focus', e.target.innerText);
-            focus.blur();
+            focusRef.blur();
         }
     } else {
         localStorage.setItem('focus', e.target.innerText);
     }
 }
 
-name.addEventListener('keypress', setName);
-name.addEventListener('blur', setName);
-focus.addEventListener('keypress', setFocus);
-focus.addEventListener('blur', setFocus);
+nameRef.addEventListener('keypress', setName);
+nameRef.addEventListener('blur', setName);
+focusRef.addEventListener('keypress', setFocus);
+focusRef.addEventListener('blur', setFocus);
 
 showTime();
 setBgGreet();
