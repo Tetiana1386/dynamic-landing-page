@@ -35,22 +35,20 @@ function setBgGreet() {
         hour = today.getHours();
     
     if (hour < 12) {
-        // Morning
-        document.body.style.backgroundImage = "url('./img/morning.jpg')";
+        document.body.style.backgroundImage = "url('./img/morning.jpeg')";
         greetingRef.textContent = 'Good Morning, ';
+        document.body.style.color = 'white';
     } else if (hour < 18) {
-        // Afternoon
-        document.body.style.backgroundImage = "url('./img/afternoon.jpeg')";
+        document.body.style.backgroundImage = "url('./img/afternoon.jpg')";
         greetingRef.textContent = 'Good Afternoon, ';
+        
     } else {
-        // Evening
         document.body.style.backgroundImage = "url('./img/evening.jpeg')";
         greetingRef.textContent = 'Good Evening, ';
         document.body.style.color = 'white';
     }
 }
 
-// Get/Set Name
 function getName() {
     if (localStorage.getItem('name') === null) {
         nameRef.textContent = '[Enter Name]';
@@ -59,18 +57,17 @@ function getName() {
     }
 }
 
-function setName(e) {
-    if (e.type === 'keypress') {
-    if (e.which == 13 || e.keyCode == 13) {
-            localStorage.setItem('name', e.target.innerText);
+function setName(event) {
+    if (event.type === 'keypress') {
+    if (event.which == 13 || event.keyCode == 13) {
+            localStorage.setItem('name', event.target.innerText);
             nameRef.blur();
         }
     } else {
-        localStorage.setItem('name', e.target.innerText);
+        localStorage.setItem('name', event.target.innerText);
     }
 }
 
-// Get/Set Focus
 function getFocus() {
     if (localStorage.getItem('focus') === null) {
         focusRef.textContent = '[Enter Focus]';
@@ -79,14 +76,14 @@ function getFocus() {
     }
 }
 
-function setFocus(e) {
-    if (e.type === 'keypress') {
-    if (e.which == 13 || e.keyCode == 13) {
-            localStorage.setItem('focus', e.target.innerText);
+function setFocus(event) {
+    if (event.type === 'keypress') {
+    if (event.which == 13 || event.keyCode == 13) {
+            localStorage.setItem('focus', event.target.innerText);
             focusRef.blur();
         }
     } else {
-        localStorage.setItem('focus', e.target.innerText);
+        localStorage.setItem('focus', event.target.innerText);
     }
 }
 
